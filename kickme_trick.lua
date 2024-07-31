@@ -1,3 +1,4 @@
+--This project is under the CC-BY-4.0 license
 chat = peripheral.wrap("top")
 pl = peripheral.wrap("left")
 
