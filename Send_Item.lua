@@ -1,3 +1,4 @@
+--This project is under the CC-BY-4.0 license
 chat = peripheral.wrap("top")
 block = peripheral.wrap("right")
 mon = peripheral.wrap("monitor_0")
@@ -40,4 +41,4 @@ message = {
  }
 }
 
-chat.sendFormattedMessage(textutils.serialiseJSON(message), "§aItem-display", "<>")
+chat.sendFormattedMessage(textutils.serialiseJSON(message), "Â§aItem-display", "<>")
