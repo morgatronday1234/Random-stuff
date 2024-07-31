@@ -1,4 +1,5 @@
 --This project is under the CC-BY-4.0 license
+--https://github.com/morgatronday1234
 chat = peripheral.wrap("top")
 block = peripheral.wrap("right")
 mon = peripheral.wrap("monitor_0")
