@@ -1,0 +1,11 @@
+aukit = require "aukit"
+response_from_tts = textutils.unserialiseJSON(http.post("https://api.v7.unrealspeech.com/speech", textutils.serialiseJSON({["Text"] = tostring(read()), ["VoiceId"] = "Scarlett"}), {["Content-Type"] = "application/json", ["Authorization"] = ""}).readAll())
+
+tts_data_mp3 = nil
+tts_data_mp3 = http.get({url = response_from_tts.OutputUri, binary = true}).readAll()
+
+
+dfpwm_uri = http.post("https://remote.craftos-pc.cc/music/upload", tts_data_mp3).readAll()
+
+shell.execute("austream", "https://remote.craftos-pc.cc/music/content/"..dfpwm_uri..".wav")
+--fs.delete(response_from_tts.TaskId..".dfpwm")
