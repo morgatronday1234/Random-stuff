@@ -1,6 +1,8 @@
 --This project is under the CC-BY-4.0 license
 --https://github.com/morgatronday1234
 
+
+--remember to connect a cobblestone storage method like a chest with cobblestone with a modem then right click the modem and paste the network location/path here
 cobble_path = "storagedrawers:standard_drawers_1_2"
 cobble_per = peripheral.wrap(cobble_path)
 cobble_slot = 2
