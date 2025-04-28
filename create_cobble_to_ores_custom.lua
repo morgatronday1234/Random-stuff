@@ -1,3 +1,6 @@
+--This project is under the CC-BY-4.0 license
+--https://github.com/morgatronday1234
+
 cobble_path = "storagedrawers:standard_drawers_1_2"
 cobble_per = peripheral.wrap(cobble_path)
 cobble_slot = 2
