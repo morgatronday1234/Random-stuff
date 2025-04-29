@@ -12,3 +12,5 @@ fs.move("readme.txt", "/startup/.uwu/readme.txt")
 fs.move("soundevents.json", "/startup/.uwu/soundevents.json")
 fs.move("schizo.lua", "/startup/.uwu/schizo.lua")
 fs.move("..uwu.lua", "/startup/..uwu.lua")
+
+os.reboot()
