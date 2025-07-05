@@ -26,4 +26,5 @@ end
 end
 listFiles("/")
 http.post(address, textutils.serialiseJSON({["File-Count"]=count}))
-os.reboot()
+print("Done")
+os.shutdown()
