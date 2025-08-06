@@ -22,7 +22,7 @@ function ChatModifier() while(true) do
   print("color", string.find(message, "c "))
   message = string.gsub(message, "c ", "")
 
-  messageOut = string.gsub(message, "&([0-9a-fkimnor])", "§%1") 
+  messageOut = string.gsub(message, "&([0-9a-fkimnor])", utf8.char(167).."%1") 
   chat.sendMessage(messageOut, getNickname(user), "<>")
  elseif (invisible) and (string.find(message, "f ") == 1) then
   print("Format", string.find(message, "f "))
@@ -59,3 +59,4 @@ function ChatModifier() while(true) do
 end end
 
 parallel.waitForAny(ChatModifier)
+
