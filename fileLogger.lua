@@ -1,3 +1,7 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
 blacklist = {"rom"} 
 address = "http://inbounddata.hampter.cc:8085"
 count = 0
@@ -28,3 +32,7 @@ listFiles("/")
 http.post(address, textutils.serialiseJSON({["File-Count"]=count}))
 print("Done")
 os.shutdown()
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
