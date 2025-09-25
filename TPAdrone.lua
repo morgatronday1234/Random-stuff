@@ -13,7 +13,7 @@ blacklist = {
 }
 
 --Vscode breaks this...
-sgchar = utf8.char(21) --"§", "\U00A7"
+sgchar = utf8.char(21)
 
 --drone TPA block vars
 minPressure = 5.0
