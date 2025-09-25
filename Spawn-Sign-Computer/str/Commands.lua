@@ -1,3 +1,7 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
 dog = peripheral.wrap("left")
 chat = peripheral.wrap("chat_box_0")
 
@@ -35,3 +39,7 @@ end end
 
 parallel.waitForAny(bannedItems, keepAlive)
 print("something broke")
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
