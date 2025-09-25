@@ -14,6 +14,7 @@ blacklist = {
 
 --Vscode breaks this...
 sgchar = utf8.char(21)
+print(sgchar)
 
 --drone TPA block vars
 minPressure = 5.0
