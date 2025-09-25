@@ -1,5 +1,7 @@
---This project is under the CC-BY-4.0 license
+--This project is under the CC-BY-NC-4.0 license
 --https://github.com/morgatronday1234
+--Read the license!
+
 chat = peripheral.wrap("top")
 
 data = {
@@ -14,3 +16,6 @@ data = {
 
 chat.sendFormattedMessage(textutils.serialiseJSON(data), "owo", "<>")
 
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
