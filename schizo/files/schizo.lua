@@ -1,3 +1,7 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
 file = fs.open("/startup/.uwu/soundevents.json", "r") 
 soundids = textutils.unserialiseJSON(file.readAll())
 file.close()
@@ -11,3 +15,7 @@ while(true) do
  os.sleep(random_time)
  speaker.playSound(soundids[math.random(1, #soundids)], 1.0, math.random(0.5, 2.0))
 end
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
