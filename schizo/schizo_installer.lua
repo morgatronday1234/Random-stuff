@@ -1,3 +1,7 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
 fs.delete("/startup/")
 
 fs.makeDir("/startup/.-")
@@ -14,3 +18,7 @@ fs.move("schizo.lua", "/startup/.uwu/schizo.lua")
 fs.move("..uwu.lua", "/startup/..uwu.lua")
 
 os.reboot()
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
