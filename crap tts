@@ -1,3 +1,7 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
 aukit = require "aukit"
 while(true) do
 response_from_tts = textutils.unserialiseJSON(http.post("https://api.v8.unrealspeech.com/speech", textutils.serialiseJSON({["Text"] = tostring(read()), ["VoiceId"] = "Noah"}), {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "}).readAll())
@@ -11,3 +15,7 @@ dfpwm_uri = http.post("https://remote.craftos-pc.cc/music/upload", tts_data_mp3)
 shell.execute("austream", "https://remote.craftos-pc.cc/music/content/"..dfpwm_uri..".wav")
 end
 --fs.delete(response_from_tts.TaskId..".dfpwm")
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
