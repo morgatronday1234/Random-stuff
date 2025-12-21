@@ -1,0 +1,35 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
+--[[
+Im sorry I have had to add a license, 
+I just don't want my stuff to get 
+stolen again :( -Morg
+Feel free to ask about anything
+--]]
+module = peripheral.wrap("back")
+
+breakBlocks = false
+power = 5
+while(true) do
+ event, key, held = os.pullEvent("key_up")
+ 
+ if (key == keys.c) then
+  playerData = module.getMetaOwner()
+  module.fire(playerData.yaw, playerData.pitch, power, breakBlocks)
+ elseif (key == keys.semicolon) then
+  --Flip the state, Its a mess i know...
+  
+  if (breakBlocks == false) then
+   breakBlocks = true
+  elseif (breakBlocks == true) then
+   breakBlocks = false
+  end 
+  
+  print("Current break state: "..tostring(breakBlocks))
+ elseif (key == keys.v) then
+  playerData = module.getMetaOwner()
+  module.launch(playerData.yaw, playerData.pitch, 4)
+ end
+end

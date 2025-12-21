@@ -1,0 +1,56 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
+geo = peripheral.wrap("back")
+char = string.char(127)
+size = 13
+
+term.clear()
+term.setBackgroundColor(colors.black)
+term.setTextColor(colors.white)
+term.setCursorPos(1, 1)
+print("morgatron's shit-ish xray computer")
+print("(press R to rescan)")
+print("Block id: ")
+sblock = read()
+
+
+something = {colors.magenta, colors.lightBlue, colors.lime, colors.cyan, colors.purple, colors.blue, colors.brown, colors.green, colors.red}
+
+function rescan()
+ scan = geo.scan(size)
+ if not (scan) then print("scan not ready") return end
+ fuck_names = {}
+ term.clear()
+
+ for _, v in pairs(scan) do
+  if (v["y"] == 0) then
+   table.insert(fuck_names, v)
+  end
+ end
+
+ term.clear()
+ for _, block in pairs(fuck_names) do
+  if (block["name"] == sblock) then
+   term.setTextColor(something[math.random(1, #something)])
+  else
+   term.setTextColor(colors.white)
+  end
+
+  x = block.x + math.floor(size / 2)+1
+  z = block.z + math.floor(size / 2)+1
+  term.setCursorPos(x, z) 
+  term.write(char) 
+ end
+end
+rescan()
+
+while(true) do
+ event, key = os.pullEvent("key_up")
+ if (keys.getName(key) == "r") then rescan() end
+end
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!

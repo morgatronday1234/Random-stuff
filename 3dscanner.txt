@@ -1,0 +1,56 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
+scanner = peripheral.wrap("back")
+statue = peripheral.wrap("statue_workbench_1")
+redstoneInt = peripheral.wrap("redstoneIntegrator_0")
+
+currentSTUblocks = {}
+statue.reset()
+
+--Area bounds for the geo scanner thingy, You may want it to be simaler to the scan range
+--Note: These are relitive coords, Relitive to the scanner
+scanRange = 16
+boundsMaxX, boundsMaxY, boundsMaxZ = 15, 16, 15
+boundsMinX, boundsMinY, boundsMinZ = 0, 1, 0
+
+
+function updateStatue(input)
+currentSTUblocks = {}
+data = input --This isn't a jank fix, You are! (Its 100% jank)
+
+for _, block in pairs(data) do
+ --This is going to look like shit...
+ if (block.x >= boundsMinX) and (block.y >= boundsMinY) and (block.z >= boundsMinZ) and (block.x <= boundsMaxX) and (block.y <= boundsMaxY) and (block.z <= boundsMaxZ) then
+  --print("Setting: "..block.x.." "..block.y.." "..block.z.." with: "..block.name)
+  table.insert(currentSTUblocks, {
+    ["x1"] = block.x,
+    ["y1"] = block.y-1,
+    ["z1"] = block.z,   --This mess is to account for the offset of the scanner 
+    ["x2"] = block.x+1,
+    ["y2"] = block.y,
+    ["z2"] = block.z+1,
+    ["texture"] = block.name:gsub("(.+):", "%1:block/")
+    --This mess of syntaxs suger turns a block ID in to a texture ID. How ever theres like a 30% chance it fails, And will defalt to full pitch black
+  })
+ end
+end
+print("Current block count: "..#currentSTUblocks)
+statue.setCubes(currentSTUblocks)
+end
+
+while(true) do
+ if (redstoneInt.getInput("bottom") == true) then
+  print("Updating...")
+  dataIn = scanner.scan(scanRange)
+  --Fixes flikering made by the scan taking time, However it won't fix that flikering created by updating the statue
+  statue.reset()
+  updateStatue(dataIn)
+  os.sleep(2)
+ end
+end
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!

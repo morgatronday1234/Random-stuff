@@ -1,0 +1,106 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
+chat = peripheral.wrap("right")
+dNight = peripheral.wrap("minecraft:dispenser_1")
+dDay = peripheral.wrap("minecraft:dispenser_0")
+
+blacklist = {
+}
+
+sgchar = ""
+--This is just the help index, This is for the help command. If you want to add a new command do that in the commands table
+helpIndex = {
+ ["</>day"] = "Sets the time to day",
+ ["</>night"] = "Set the time to night",
+ ["</>amount"] = "Show the remaining tablets left",
+ ["</>help"] = "Tells you the current commands and what they do. (New commands will be shown here)"
+}
+
+function day()
+ redstone.setOutput("front", true)
+ os.sleep(0.1)
+ redstone.setOutput("front", false)
+
+ print(user, message, isHidden)
+ chat.sendMessageToPlayer(sgchar.."oSet to day (If not run $</>amount)", user, "WIP", "<>")
+end
+
+function night()
+ redstone.setOutput("back", true)
+ os.sleep(0.1)
+ redstone.setOutput("back", false)
+
+ print(user, message, isHidden)
+ chat.sendMessageToPlayer(sgchar.."oSet to night (If not run $</>amount)", user, "WIP", "<>")
+end
+
+function amount()
+ dNightList = dNight.list()
+ dDayList = dDay.list()
+ 
+ nightCount = 0
+ dayCount = 0
+ for _, dnli in pairs(dNightList) do
+  nightCount = nightCount +dnli.count
+ end
+ for _, ddli in pairs(dDayList) do
+  dayCount = dayCount +ddli.count
+ end
+
+ atext = sgchar.."oCurrent amounts:\n night: "..nightCount.."\n day: "..dayCount
+ chat.sendMessageToPlayer(atext, user, "WIP", "<>")
+ print(user, message, isHidden)
+end
+
+function help()
+ htext = sgchar.."oCommands:\n "
+ for command, info in pairs(helpIndex) do
+  htext = htext.."\""..command.."\": "..info.."\n"
+ end
+
+ chat.sendMessageToPlayer(htext, user, "WIP", "<>")
+ print(user, message, isHidden)
+end
+
+--New commands get added here, The help index is above
+commands = {
+ ["</>day"] = day,
+ ["</>night"] = night,
+ ["</>amount"] = amount,
+ ["</>help"] = help
+}
+
+while(true) do
+ event, user, message, _, isHidden = os.pullEvent("chat")
+
+ pass = true
+ for _, bname in pairs(blacklist) do
+  if (bname == user) then
+   pass = false
+  end
+ end
+ 
+ for command, func in pairs(commands) do
+  if (string.find(message, command) == 1) and (pass == true) then
+   func()
+  elseif (pass == false) then
+   chat.sendMessageToPlayer(sgchar.."c"..sgchar.."oWarning you are blacklisted from using these commands")
+   print("(blacklisted)", user, message, isHidden)
+  end
+ end
+ --[[
+ if (isHidden == true) and (string.find(message, prefix.."day") == 1) then
+
+ elseif (isHidden == true) and (string.find(message, prefix.."night") == 1) then
+ 
+ elseif (isHidden == true) and (string.find(message, prefix.."amount") == 1) then
+
+ end
+ --]]
+end
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!

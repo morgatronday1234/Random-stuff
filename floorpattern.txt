@@ -1,0 +1,77 @@
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
+
+forg = peripheral.wrap("left")
+
+ancs = forg.detectAnchors()
+
+
+ancMaxX = 0
+ancMaxZ = 0
+for _, anc in pairs(ancs) do
+ if (anc.x > ancMaxX) then
+  ancMaxX = anc.x
+ end
+ 
+ if (anc.z > ancMaxZ) then
+  ancMaxZ = anc.z
+ end
+end
+
+function createPattern(maxSize)
+ frames = {}
+ 
+ for step=1, maxSize do
+  frame = {}
+
+  for ancCurX=1, step do
+   ancCurZ = (step-ancCurX) +1
+   if (ancCurZ <= maxSize) then
+    table.insert(frame, {["x"] = ancCurX, ["y"]=0, ["z"] = ancCurZ})
+   end
+  end
+
+  frames[step] = frame
+ end
+ 
+ --Filling part
+ for step = maxSize +1, (maxSize * 2) -1 do
+  frame = {}
+  offset = step - maxSize
+
+  for ancCurX=1 + offset, maxSize do
+   ancCurZ = maxSize - (ancCurX-offset -1)
+
+   if (ancCurZ <= maxSize) and (ancCurZ > 0) then
+    table.insert(frame, {["x"] = ancCurX, ["y"]=0, ["z"] = ancCurZ})
+   end
+  end
+
+  frames[step] = frame
+ end
+ 
+ return frames
+end
+frames = createPattern(ancMaxX)
+--Make it dynmaic they said, They didn't say that'd be easy...
+
+block = "minecraft:dirt"
+blockI = 1
+blocks = {"minecraft:amethyst_block", "the_bumblezone:filled_porous_honeycomb_block", "biomeswevegone:skyris_planks", "minecraft:sculk"}
+while(true) do
+ for _, frame in pairs(frames) do
+  forg.forgeRealityPieces(frame, {["block"]=blocks[blockI]})
+  os.sleep(0.1)
+ end
+
+ if (blockI >= #blocks) then 
+  blockI = 1 
+ else
+  blockI = blockI +1
+ end
+end
+
+--This project is under the CC-BY-NC-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
