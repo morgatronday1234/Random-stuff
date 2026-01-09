@@ -1,4 +1,4 @@
---This project is under the CC-BY-NC-4.0 license
+--This project is under the CC-BY-4.0 license
 --https://github.com/morgatronday1234
 --Read the license!
 
@@ -58,12 +58,11 @@ function ChatModifier() while(true) do
    chat.sendFormattedMessageToPlayer(errorMessageJson, user, "Chat Modifier", "<>")
   end
  end
-
- --This project is under the CC-BY-NC-4.0 license
---https://github.com/morgatronday1234
---Read the license!
 end end
 
 parallel.waitForAny(ChatModifier)
 
+--This project is under the CC-BY-4.0 license
+--https://github.com/morgatronday1234
+--Read the license!
 
