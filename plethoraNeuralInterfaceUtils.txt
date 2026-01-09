@@ -1,4 +1,4 @@
---This project is under the CC-BY-NC-4.0 license
+--This project is under the CC-BY-4.0 license
 --https://github.com/morgatronday1234
 --Read the license!
 
@@ -33,3 +33,4 @@ while(true) do
   module.launch(playerData.yaw, playerData.pitch, 4)
  end
 end
+
