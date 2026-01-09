@@ -1,5 +1,7 @@
 --This project is under the CC-BY-4.0 license
 --https://github.com/morgatronday1234
+--Read the license!
+
 function prep()
  term.setBackgroundColor(colors.black)
  term.setTextColor(colors.white)
