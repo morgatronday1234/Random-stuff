@@ -1,0 +1,1 @@
+peripheral.call("back", "clear")
