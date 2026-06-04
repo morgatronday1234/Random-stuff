@@ -1,4 +1,4 @@
-Made for a dumb idea with AP's 1.20.1 build of 0.8's new smart glasses! (https://github.com/IntelligenceModding/AdvancedPeripherals/tree/dev/0.8-1.21.1)
+Made for a dumb idea with AP's 1.21.1 build of 0.8's new smart glasses! (https://github.com/IntelligenceModding/AdvancedPeripherals/tree/dev/0.8-1.21.1)
  https://youtu.be/GdTvA9XNbf8
 
 
