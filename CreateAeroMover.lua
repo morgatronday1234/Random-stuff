@@ -1,6 +1,5 @@
---This project is under the CC-BY-4.0 license
+--This project- You know what? Fuck the license. Do what you want with the code! Just please give some credit ::3
 --https://github.com/morgatronday1234
---Read the license!
 
 local left, right = peripheral.wrap("Create_SequencedGearshift_1"), peripheral.wrap("Create_SequencedGearshift_0")
 local modem = peripheral.wrap("top")
