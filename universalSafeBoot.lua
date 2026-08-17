@@ -1,6 +1,6 @@
 --This project- You know what? Fuck the license. Do what you want with the code! Just please give some credit ::3
 --https://github.com/morgatronday1234
---You may want to rename this file to 'startup.lua' or put it in startup/
+--You may want to rename this file to 'startup.lua' or put it in the startup/ directory
 
 local log = function(text) local file = fs.open("log.txt", "a") if (file) then file.write(("\n[%s]: %s"):format(os.date("%b|%d %I:%M:%S(%p)", os.epoch("local")/1000), text)) file.close() else print(("Failed to write to log: %s"):format(text)) end end
 
