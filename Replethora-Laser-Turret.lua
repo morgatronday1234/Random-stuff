@@ -19,6 +19,7 @@ Knowen things:
  
  So it has to be the sqrt() call.
 --]]
+--^^^^ Ignore, Issue is fixed
 function entDist(ent)
  expect(1, ent, "table")
  local vec = vector.new(ent.x, ent.y, ent.z)
