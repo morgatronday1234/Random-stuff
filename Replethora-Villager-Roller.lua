@@ -68,7 +68,7 @@ assert(not (closestEntBasic) or not (closestEntBasic.dist > 4), "No villagers in
 
 local totalRolls = 0
 local totalEnchants = 0
-local startTime = os.epoch()
+local startTime = os.epoch("utc")
 local canRun = true
 while(canRun) do 
  local closestEnt = scanner.getMetaByID(closestEntBasic.id)
@@ -77,7 +77,7 @@ while(canRun) do
   for _, trade in pairs(closestEnt.trades) do
    local tradeItemData = trade.sellItem.getMetadata()
    if (tradeItemData.enchantments) and (math.abs(tradeItemData.enchantments[1].level) >= math.abs(tonumber(args[2]))) and (tradeItemData.enchantments[1].name == args[1]) then
-    print(("Trade found!\nEnchantment: %s, Level: %s\nTotal Time: %s, Total Rolls: %s, Total Enchantment Rolls: %s"):format(tradeItemData.enchantments[1].displayName, tradeItemData.enchantments[1].level, ((os.epoch()-startTime)/1000).."s", totalRolls, totalEnchants))
+    print(("Trade found!\nEnchantment: %s, Level: %s\nTotal Time: %s, Total Rolls: %s, Total Enchantment Rolls: %s"):format(tradeItemData.enchantments[1].displayName, tradeItemData.enchantments[1].level, ((os.epoch("utc")-startTime)/1000).."s", totalRolls, totalEnchants))
 
     totalEnchants = totalEnchants +1
     canRun = false
