@@ -7,7 +7,7 @@ local laser = peripheral.wrap("left")
 
 --Uhh I'm jsut gonna put this here
 function magnitude(x, y, z)
-    return math.sqrt((x * x) + (y * y) + (z * z))
+    return math.sqrt((x^2) + (y^2) + (z^2))
 end
 
 
@@ -23,7 +23,7 @@ Knowen things:
 function entDist(ent)
  expect(1, ent, "table")
  local vec = vector.new(ent.x, ent.y, ent.z)
- local dist = ((vec.x * vec.x)+(vec.y * vec.y)+(vec.z * vec.z))
+ local dist = ((vec.x^2)+(vec.y^2)+(vec.z^2))
  
  return dist
 end
@@ -60,12 +60,12 @@ function getClosestEnt(ents)
  
  --print(#ents)
  local closestEnt = {}
- local closestEntDist = 0
+ local closestEntDist = 32
  
  for _, ent in pairs(ents) do
   local curEntDist = ent:dist()--Please just fucking work  
   
-  if (curEntDist > closestEntDist) then
+  if (curEntDist < closestEntDist) then
    closestEntDist = curEntDist
    closestEnt = ent
   end
