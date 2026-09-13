@@ -1,3 +1,6 @@
+--Made by morgatron
+--https://github.com/morgatronday1234/Random-stuff
+
 require("killMobs")
 local module = peripheral.wrap("back")
 
