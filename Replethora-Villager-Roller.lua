@@ -1,6 +1,7 @@
 local expect = require("cc.expect")
 local scanner = peripheral.wrap("left")
 local args = {...}
+local enableSpeaker = false
 
 assert(args[1], "Argument #1: Expect enchantment ID")
 assert(args[2] and (type(tonumber(args[2]) == "number")), "Argument #2: Expect enchantment level")
@@ -62,6 +63,14 @@ local function cycleTrade()
 end
 --trades[2].sellItem.getMetadata().enchantments[1].name
 
+local function beep()
+ turtle.select(16)
+ turtle.equipRight()
+ peripheral.call("right", "playSound", "minecraft:block.beacon.activate", 3.0)
+ turtle.equipRight()
+ turtle.select(1)
+end
+
 local filteredEnts = getEntsByIds(scanner.sense(), {["minecraft:villager"]=true})
 local closestEntBasic = getClosestEnt(filteredEnts)
 assert(not (closestEntBasic) or not (closestEntBasic.dist > 4), "No villagers in range")
@@ -78,7 +87,8 @@ while(canRun) do
    local tradeItemData = trade.sellItem.getMetadata()
    if (tradeItemData.enchantments) and (math.abs(tradeItemData.enchantments[1].level) >= math.abs(tonumber(args[2]))) and (tradeItemData.enchantments[1].name == args[1]) then
     print(("Trade found!\nEnchantment: %s, Level: %s\nTotal Time: %s, Total Rolls: %s, Total Enchantment Rolls: %s"):format(tradeItemData.enchantments[1].displayName, tradeItemData.enchantments[1].level, ((os.epoch("utc")-startTime)/1000).."s", totalRolls, totalEnchants))
-
+    if (enableSpeaker) then beep() end
+    
     totalEnchants = totalEnchants +1
     canRun = false
    elseif (tradeItemData.enchantments) then
