@@ -1,7 +1,7 @@
 --Made by morgatron
 --https://github.com/morgatronday1234/Random-stuff
 
-require("killMobs")
+require("killMobs") --https://github.com/morgatronday1234/Random-stuff/blob/main/killMobs.lua
 local module = peripheral.wrap("back")
 
 
