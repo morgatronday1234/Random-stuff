@@ -67,9 +67,9 @@ local function targ(ent)
   error(("Agument #1: Invaild entity: %s"):format(textutils.serialise(ent)))
  end
  
- ent.x = ent.x +ent.moitonX
- ent.y = ent.y +ent.moitonY
- ent.z = ent.z +ent.moitonZ
+ ent.x = ent.x +ent.motionX
+ ent.y = ent.y +ent.motionY
+ ent.z = ent.z +ent.motionZ
  --local shitToShoot = getKeyInRange(modules.sense(), "minecraft:item_frame")
  local targYaw = math.deg(math.atan2(-ent.x, ent.z))
  local targPitch = math.deg(math.atan2(ent.y, math.sqrt((ent.x*ent.x)+(ent.z*ent.z))))
