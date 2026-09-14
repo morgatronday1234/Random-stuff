@@ -1,8 +1,63 @@
---Made by morgatron
---https://github.com/morgatronday1234/Random-stuff
-
-require("killMobs") --https://github.com/morgatronday1234/Random-stuff/blob/main/killMobs.lua
+require("killMobs")
+local expect = require("cc.expect")
 local module = peripheral.wrap("back")
+
+
+function getKeysInRangeBlacklist(ents, keys)
+ expect(1, ents, "table")
+ if (keys == nil) then key = true end --Bypass the key if key was not passed
+ 
+ local matchingEnts = {}
+ setmetatable(matchingEnts, {["__index"]=table})
+ 
+ for _, ent in pairs(ents) do
+  if not (keys[ent.key] == true) or (key == true) then
+   setmetatable(ent, {["__index"]={["dist"]=entDist}})
+   matchingEnts:insert(ent)
+  end
+ end
+ 
+ return matchingEnts
+end
+
+
+local function useTarg(kin, ent)
+ expect(1, kin, "table")
+ expect(2, ent, "table")
+ if not (ent.x) or not (ent.y) or not (ent.z) then
+  error(("Agument #1: Invaild entity: %s"):format(textutils.serialise(ent)))
+ end
+ 
+ ent.x = ent.x +ent.motionX
+ ent.y = ent.y +ent.motionY
+ ent.z = ent.z +ent.motionZ
+ --local shitToShoot = getKeyInRange(modules.sense(), "minecraft:item_frame")
+ local targYaw = math.deg(math.atan2(-ent.x, ent.z))
+ local targPitch = math.deg(math.atan2(ent.y, math.sqrt((ent.x*ent.x)+(ent.z*ent.z))))
+ 
+ --print(("yaw: %s\nPitch: %s\n"):format(targYaw, -targPitch))
+ kin.look(targYaw, -targPitch)
+end
+
+--Cool auto targeter that lights on fire sometimes/
+function aimTarget(kin, sensor,  listOfTargets)
+ local shitToCheck = sensor.sense()
+ local checkedShit = getKeysInRangeBlacklist(shitToCheck, listOfTargets) 
+ local target = getClosestEnt(checkedShit)
+
+ if (target.x) then
+  --Don't look here, For your own sanity.
+  target.y = target.y+ 0.1
+  
+  --print(textutils.serialise(checkedShit))
+  useTarg(kin, target)
+  kin.swing()
+  os.sleep(0.1)
+  kin.stopSwinging()
+ else
+  os.sleep(0.1)
+ end
+end
 
 local breakBlocks = false
 local power = 5
@@ -17,6 +72,8 @@ function main() while(true) do
  local playerData = nil
  if (pass) then
   playerData = module.getMetaOwner()
+ else
+  goto skipCycle --I shouldn't have to fucking use byte code keywords just to get modules to not crash, Im not fucking going to wrap everthing in pcall.
  end
  --getMetaFinish = (os.epoch("utc")-getMetaTime).."ms"
  
@@ -32,9 +89,12 @@ function main() while(true) do
   module.launch(playerData.yaw, playerData.pitch, 4)
  elseif (pass) and (username) and (key == keys.x) then
   killTarget(module, module)
+ elseif (pass) and (username) and (key == keys.g) then
+  aimTarget(module, module, {["minecraft:player"]=true, ["minecraft:arrow"]=true})
  end
  --getWholeFinish = (os.epoch("utc")-getWholeTime).."ms"
  --print(("NT: %s, MT: %s, WT: %s"):format(getNameFinish, getMetaFinish, getWholeFinish))
+ ::skipCycle::
 end end
 
 parallel.waitForAny(main)
