@@ -5,7 +5,6 @@ require("killMobs") --https://github.com/morgatronday1234/Random-stuff/blob/main
 local module = peripheral.wrap("back")
 
 
-
 local breakBlocks = false
 local power = 5
 function main() while(true) do
@@ -30,7 +29,7 @@ function main() while(true) do
  elseif (pass) and (username) and (key == keys.v) then
   module.launch(playerData.yaw, playerData.pitch, 4)
  elseif (pass) and (username) and (key == keys.x) then
-  killTarget()
+  killTarget(module, module)
  end
  --getWholeFinish = (os.epoch("utc")-getWholeTime).."ms"
  --print(("NT: %s, MT: %s, WT: %s"):format(getNameFinish, getMetaFinish, getWholeFinish))
