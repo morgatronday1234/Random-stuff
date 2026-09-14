@@ -39,7 +39,6 @@ local function useTarg(kin, ent)
  kin.look(targYaw, -targPitch)
 end
 
---Cool auto targeter that lights on fire sometimes/
 function aimTarget(kin, sensor,  listOfTargets)
  local shitToCheck = sensor.sense()
  local checkedShit = getKeysInRangeBlacklist(shitToCheck, listOfTargets) 
@@ -61,6 +60,7 @@ end
 
 local breakBlocks = false
 local power = 5
+
 function main() while(true) do
  local event, key, held = os.pullEvent("key")
  --getWholeTime = os.epoch("utc")
@@ -97,4 +97,5 @@ function main() while(true) do
  ::skipCycle::
 end end
 
-parallel.waitForAny(main)
+parallel.waitForAny(function() pcall(main) end) --fuck this shit, It will crash since the way the replethora devs implemented the module, It will hard error if ANYTHING goes wrong, Im not going to wrap ever fuck method in pcall just to fix you're lazy coding.
+--God forbid the player dies mid exec, **HARD ERROR!**
