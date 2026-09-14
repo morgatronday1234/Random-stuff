@@ -79,10 +79,9 @@ local function targ(ent)
 end
 
 
-function killTarget()
- local shitToCheck = mobs.sense()
- local checkedShit = getKeysInRange(shitToCheck, 
-  {
+function killTarget(listOfTargets)
+ if not (listOfTargets) then 
+  listOfTargets = {
    --["minecraft:item_frame"]=true,
    --["minecraft:pig"]=true,
    ["minecraft:wither"]=true,--Pray this never happens.
@@ -99,7 +98,9 @@ function killTarget()
    ["minecraft:spider"]=true,
    ["minecraft:enderman"]=true
   }
- ) 
+ end
+ local shitToCheck = mobs.sense()
+ local checkedShit = getKeysInRange(shitToCheck, listOfTargets) 
  local target = getClosestEnt(checkedShit)
 
  if (target.x) then
