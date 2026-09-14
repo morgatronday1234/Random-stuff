@@ -8,7 +8,7 @@ local laser = peripheral.wrap("left")
 
 
 while(true) do
- killTarget({
+ killTarget(laser, mobs, {
    --["minecraft:item_frame"]=true,
    --["minecraft:pig"]=true,
    ["minecraft:wither"]=true,--Pray this never happens.
