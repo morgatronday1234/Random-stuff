@@ -1,3 +1,6 @@
+--Made by morgatron
+--https://github.com/morgatronday1234/Random-stuff/blob/main/cooker.lua
+
 local ferns = {peripheral.find("minecraft:furnace")}
 
 local fuelChest = peripheral.wrap("")
