@@ -61,8 +61,9 @@ function getClosestEnt(ents)
  return closestEnt
 end
 
-local function targ(ent)
- expect(1, ent, "table")
+local function targ(laser, ent)
+ expect(1, laser, "table")
+ expect(2, ent, "table")
  if not (ent.x) or not (ent.y) or not (ent.z) then
   error(("Agument #1: Invaild entity: %s"):format(textutils.serialise(ent)))
  end
@@ -79,7 +80,7 @@ local function targ(ent)
 end
 
 
-function killTarget(listOfTargets)
+function killTarget(laser, sensor, listOfTargets)
  if not (listOfTargets) then 
   listOfTargets = {
    --["minecraft:item_frame"]=true,
@@ -99,7 +100,7 @@ function killTarget(listOfTargets)
    ["minecraft:enderman"]=true
   }
  end
- local shitToCheck = mobs.sense()
+ local shitToCheck = sensor.sense()
  local checkedShit = getKeysInRange(shitToCheck, listOfTargets) 
  local target = getClosestEnt(checkedShit)
 
@@ -108,7 +109,7 @@ function killTarget(listOfTargets)
   target.y = target.y+ 0.1
   
   --print(textutils.serialise(checkedShit))
-  targ(target)
+  targ(laser, target)
  else
   os.sleep(0.1)
  end
