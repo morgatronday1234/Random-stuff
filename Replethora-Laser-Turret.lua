@@ -1,7 +1,7 @@
 --Made by Morgatron & GlingusMcDingus(@genericdumbcat)
 --https://github.com/morgatronday1234/Random-stuff/blob/main/Replethora-Laser-Turret.lua
 
-require(killMobs) --https://github.com/morgatronday1234/Random-stuff/blob/main/killMobs.lua
+require("killMobs") --https://github.com/morgatronday1234/Random-stuff/blob/main/killMobs.lua
 local expect = require("cc.expect").expect
 local mobs = peripheral.wrap("right")
 local laser = peripheral.wrap("left")
