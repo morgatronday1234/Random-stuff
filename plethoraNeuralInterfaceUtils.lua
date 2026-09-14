@@ -4,7 +4,6 @@
 require("killMobs") --https://github.com/morgatronday1234/Random-stuff/blob/main/killMobs.lua
 local module = peripheral.wrap("back")
 
-
 local breakBlocks = false
 local power = 5
 function main() while(true) do
@@ -15,7 +14,10 @@ function main() while(true) do
  --getNameFinish = (os.epoch("utc")-getNameTime).."ms"
 
  --getMetaTime = os.epoch("utc")
- local playerData = module.getMetaOwner()
+ local playerData = nil
+ if (pass) then
+  playerData = module.getMetaOwner()
+ end
  --getMetaFinish = (os.epoch("utc")-getMetaTime).."ms"
  
 
