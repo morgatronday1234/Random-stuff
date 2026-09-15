@@ -1,16 +1,12 @@
 --https://github.com/morgatronday1234
 --Made by morgatron
 
-aukit = require "aukit"
+local aukit = require("aukit")
 while(true) do
-response_from_tts = textutils.unserialiseJSON(http.post("https://api.v8.unrealspeech.com/speech", textutils.serialiseJSON({["Text"] = tostring(read()), ["VoiceId"] = "Noah"}), {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "}).readAll())
+ local response_from_tts = textutils.unserialiseJSON(http.post("https://api.v8.unrealspeech.com/speech", textutils.serialiseJSON({["Text"] = tostring(read()), ["VoiceId"] = "Noah"}), {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "}).readAll())
+ local tts_data_mp3 = http.get({url = response_from_tts.OutputUri, binary = true}).readAll()
 
-tts_data_mp3 = nil
-tts_data_mp3 = http.get({url = response_from_tts.OutputUri, binary = true}).readAll()
-
-
-dfpwm_uri = http.post("https://remote.craftos-pc.cc/music/upload", tts_data_mp3).readAll()
-
-shell.execute("austream", "https://remote.craftos-pc.cc/music/content/"..dfpwm_uri..".wav")
+ local dfpwm_uri = http.post("https://remote.craftos-pc.cc/music/upload", tts_data_mp3).readAll()
+ shell.execute("austream", "https://remote.craftos-pc.cc/music/content/"..dfpwm_uri..".wav")
 end
 --fs.delete(response_from_tts.TaskId..".dfpwm")
