@@ -61,36 +61,38 @@ function main() while(true) do
  local event, key, held = os.pullEvent("key")
 
   --getMetaTime = os.epoch("utc")
+ --Will dynamicly switch between a mob sensor and and introspction module; Be warned the sensor is slower.
  local metaPlayerData = nil
+ local pass, playerData = nil, nil
  if (module.getMetaOwner) then
   metaPlayerData = module.getMetaOwner()
- end
-
- local pass, playerData = nil, nil
- if not (metaPlayerData) then
-  pass, playerData = getSelf()
- else
   pass, playerData = true, metaPlayerData
+  if not (warnFlagI) then print("Loaded using introspc") warnFlagI = true end
+ elseif not (metaPlayerData) then
+  pass, playerData = getSelf(module)
+  if not (warnFlagS) then print("Loaded using sensor") warnFlagS = true end
  end
 
-  if not (pass) or (metPlayerData) then
-   goto skipCycle --I shouldn't have to fucking use byte code keywords just to get modules to not crash, Im not fucking going to wrap everthing in pcall.
-  end
+ 
+ if not (pass) or not (playerData) then
+  print("Failed to read player data, Skipping cycle")
+  goto skipCycle --I shouldn't have to fucking use byte code keywords just to get modules to not crash, Im not fucking going to wrap everthing in pcall.
+ end
  --getMetaFinish = (os.epoch("utc")-getMetaTime).."ms"
  
 
- if (pass) and (username) and (key == keys.c) then
+ if (pass) and (playerData) and (key == keys.c) then
   module.fire(playerData.yaw, playerData.pitch, power, breakBlocks)
- elseif (pass) and (username) and (key == keys.semicolon) then
+ elseif (pass) and (playerData) and (key == keys.semicolon) then
   --Flip the state, Its a mess i know...
   breakBlocks = not breakBlocks
   
   print("Current break state: "..tostring(breakBlocks))
- elseif (pass) and (username) and (key == keys.v) then
+ elseif (pass) and (playerData) and (key == keys.v) then
   module.launch(playerData.yaw, playerData.pitch, 4)
- elseif (pass) and (username) and (key == keys.x) then
+ elseif (pass) and (playerData) and (key == keys.x) then
   killTarget(module, module)
- elseif (pass) and (username) and (key == keys.g) then
+ elseif (pass) and (playerData) and (key == keys.g) then
   aimTarget(module, module, {["minecraft:player"]=true, ["minecraft:arrow"]=true})
  end
  --getWholeFinish = (os.epoch("utc")-getWholeTime).."ms"
@@ -98,5 +100,6 @@ function main() while(true) do
  ::skipCycle::
 end end
 
+main()
 parallel.waitForAny(function() pcall(main) end) --fuck this shit, It will crash since the way the replethora devs implemented the module, It will hard error if ANYTHING goes wrong, Im not going to wrap ever fuck method in pcall just to fix you're lazy coding.
 --God forbid the player dies mid exec, **HARD ERROR!**
