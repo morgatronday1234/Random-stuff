@@ -3,24 +3,6 @@ local expect = require("cc.expect")
 local module = peripheral.wrap("back")
 
 
-function getKeysInRangeBlacklist(ents, keys)
- expect(1, ents, "table")
- if (keys == nil) then key = true end --Bypass the key if key was not passed
- 
- local matchingEnts = {}
- setmetatable(matchingEnts, {["__index"]=table})
- 
- for _, ent in pairs(ents) do
-  if not (keys[ent.key] == true) or (key == true) then
-   setmetatable(ent, {["__index"]={["dist"]=entDist}})
-   matchingEnts:insert(ent)
-  end
- end
- 
- return matchingEnts
-end
-
-
 local function useTarg(kin, ent)
  expect(1, kin, "table")
  expect(2, ent, "table")
@@ -37,6 +19,20 @@ local function useTarg(kin, ent)
  
  --print(("yaw: %s\nPitch: %s\n"):format(targYaw, -targPitch))
  kin.look(targYaw, -targPitch)
+end
+
+local function getSelf(sensor)
+ expect(1, sensor, "table")
+ 
+ local ents = sensor.sense()
+ local filteredEnts = getKeysInRange(ents, {["minecraft:player"]=true})
+ local selfEnt = getClosestEnt(filteredEnts)
+
+ if (selfEnt) then
+  return true, selfEnt
+ else
+  return false, "Failed to get self"
+ end
 end
 
 function aimTarget(kin, sensor,  listOfTargets)
@@ -63,16 +59,10 @@ local power = 5
 
 function main() while(true) do
  local event, key, held = os.pullEvent("key")
- --getWholeTime = os.epoch("utc")
- --getNameTime = os.epoch("utc")
- local pass, username = pcall(module.getName)
- --getNameFinish = (os.epoch("utc")-getNameTime).."ms"
 
- --getMetaTime = os.epoch("utc")
- local playerData = nil
- if (pass) then
-  playerData = module.getMetaOwner()
- else
+  --getMetaTime = os.epoch("utc")
+ local playerData = getSelf()
+ if not (playerData) then
   goto skipCycle --I shouldn't have to fucking use byte code keywords just to get modules to not crash, Im not fucking going to wrap everthing in pcall.
  end
  --getMetaFinish = (os.epoch("utc")-getMetaTime).."ms"
