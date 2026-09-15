@@ -40,6 +40,23 @@ function getKeysInRange(ents, keys)
  return matchingEnts
 end
 
+function getKeysInRangeBlacklist(ents, keys)
+ expect(1, ents, "table")
+ if (keys == nil) then key = true end --Bypass the key if key was not passed
+ 
+ local matchingEnts = {}
+ setmetatable(matchingEnts, {["__index"]=table})
+ 
+ for _, ent in pairs(ents) do
+  if not (keys[ent.key] == true) or (key == true) then
+   setmetatable(ent, {["__index"]={["dist"]=entDist}})
+   matchingEnts:insert(ent)
+  end
+ end
+ 
+ return matchingEnts
+end
+
 function getClosestEnt(ents)
  expect(1, ents, "table")
  
