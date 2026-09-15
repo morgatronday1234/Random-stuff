@@ -61,10 +61,18 @@ function main() while(true) do
  local event, key, held = os.pullEvent("key")
 
   --getMetaTime = os.epoch("utc")
- local pass, playerData = getSelf()
- if not (pass) then
-  goto skipCycle --I shouldn't have to fucking use byte code keywords just to get modules to not crash, Im not fucking going to wrap everthing in pcall.
+ local metaPlayerData = nil
+  if (module.getMetaOwner) then
+  metaPlayerData = module.getMetaOwner()
  end
+
+ if not (metaPlayerData) then
+  local pass, playerData = getSelf()
+ end
+
+  if not (pass) or (metPlayerData) then
+   goto skipCycle --I shouldn't have to fucking use byte code keywords just to get modules to not crash, Im not fucking going to wrap everthing in pcall.
+  end
  --getMetaFinish = (os.epoch("utc")-getMetaTime).."ms"
  
 
