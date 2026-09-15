@@ -62,12 +62,15 @@ function main() while(true) do
 
   --getMetaTime = os.epoch("utc")
  local metaPlayerData = nil
-  if (module.getMetaOwner) then
+ if (module.getMetaOwner) then
   metaPlayerData = module.getMetaOwner()
  end
 
+ local pass, playerData = nil, nil
  if not (metaPlayerData) then
-  local pass, playerData = getSelf()
+  pass, playerData = getSelf()
+ else
+  pass, playerData = true, metaPlayerData
  end
 
   if not (pass) or (metPlayerData) then
