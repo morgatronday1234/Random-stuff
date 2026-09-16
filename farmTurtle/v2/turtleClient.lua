@@ -8,6 +8,13 @@ local modem = peripheral.wrap("left")
 local selfTurtle = "berry#1"
 modem.open(42424)
 
+if not (fs.exists("runawayState.json")) then
+ print("State file does not exist, Creating file.")
+ local createStateFile = fs.open("runawayState.json", "w")
+ createStateFile.write(textutils.serialiseJSON({["state"]=false}))
+ createStateFile.close()
+end
+
 --Inbound
 --[[
 {
@@ -21,6 +28,30 @@ modem.open(42424)
 
 local function log(text)
  print(("[Info]: %s"):format(text))
+end
+
+local function getRunawayState()
+ local file = fs.open("runawayState.json", "r")
+ if not (file) then
+  return 2, "Failed to open runawayState.json"
+ end
+ 
+ local stateJson, jsonErr = textutils.unserialiseJSON(file.readAll())
+ file.close()
+ if (jsonErr) or (stateJson.state == nil) then
+  return 3, "Failed to read JSON: "..tostring(jsonErr)
+ end
+ 
+ return 1, stateJson.state
+end
+
+local function setRunawayState(state)
+ local file = fs.open("runawayState.json", "w")
+ if not (file) then
+  return false, "Failed to open runawayState.json"
+ end
+ file.write(textutils.serialiseJSON({["state"]=state}))
+ file.close() 
 end
 
 local blockCommands = {
@@ -63,6 +94,7 @@ local blockCommands = {
  end,
  ["minecraft:warped_wart_block"] = function()
   log("WARNING RUNNAWAY DETECTED, Self destructing...")
+  setRunawayState(true)
   error("WARNING RUNNAWAY DETECTED, Self destructing...")
  end
 }
@@ -83,6 +115,15 @@ end
 
 
 local function doCycle() while(true) do
+ local code, output = getRunawayState()
+ if (code ~= 1) then
+  log("Runaway State: "..tostring(output))
+ elseif (code == 1) and (output == true) then
+  log("Runaway state toggled, Please reset.")
+  error("Runaway state toggled, Please reset.")
+ end
+ 
+ 
  turtle.forward() turtle.suck()
  local pass, data = turtle.inspectDown()
  
