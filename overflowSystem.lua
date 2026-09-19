@@ -36,7 +36,10 @@ function main()  while(true) do if (redstone.getInput("front") == true) then
     log("error", ("Failed to call [%s]: [%s]"):format(subiName, amountOrErr))
     break
    end
-   totalItemsTransfered = totalItemsTransfered +amountOrErr
+
+   if (totalItemsTransfered ~= nil) and (amountOrErr ~= nil) then
+    totalItemsTransfered = totalItemsTransfered +amountOrErr
+   end
   end
   
   if (totalItemsTransfered > 0) then
