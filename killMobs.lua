@@ -90,7 +90,7 @@ local function targ(laser, ent)
  ent.z = ent.z +ent.motionZ
  --local shitToShoot = getKeyInRange(modules.sense(), "minecraft:item_frame")
  local targYaw = math.deg(math.atan2(-ent.x, ent.z))
- local targPitch = math.deg(math.atan2(ent.y, math.sqrt((ent.x*ent.x)+(ent.z*ent.z))))
+ local targPitch = math.deg(math.atan2(ent.y, math.sqrt((ent.x^2)+(ent.z^2))))
  
  --print(("yaw: %s\nPitch: %s\n"):format(targYaw, -targPitch))
  laser.fire(targYaw, -targPitch, 5, false)
