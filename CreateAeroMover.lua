@@ -17,7 +17,7 @@ local function getRot()
   ["pitch"] = ((math.deg(pitch)%360)+360)%360,
   ["yaw"] = ((math.deg(yaw)%360)+360)%360,
   ["roll"] = ((math.deg(roll)%360)+360)%360
- }
+ } 
  
  return rot
 end
@@ -115,6 +115,6 @@ targets = {
 while(true) do
  for _, targ in pairs(targets) do
   car.gotoVec(targ)
-  createLine(getPos(), targ)
+  --createLine(getPos(), targ)
  end
 end
