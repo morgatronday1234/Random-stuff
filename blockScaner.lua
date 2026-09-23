@@ -4,15 +4,10 @@ local expect = require("cc.expect")
 local modules = peripheral.wrap("back")
 
 local relitivePos = assert(vector.new(gps.locate()), "Failed to get starting relitve POS, This needs a modem")
-local filterBlocks = {
- "minecraft:obsidian",
- "minecraft:stone"
-}
 
 --WARNING! Do not use common block unless you can store shit tons of data; Or set keepBlockName to false!
 local filterBlocks = {
- "minecraft:obsidian",
- "minecraft:stone"
+ "minecraft:obsidian"
 }
 local keepBlockName = true
 
