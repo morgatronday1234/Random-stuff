@@ -1,8 +1,11 @@
 --Made by Morgatron
 --https://github.com/morgatronday1234/Random-stuff/blob/main/Replethora-Laser-Turret.lua
 
-
-local monitor = peripheral.wrap("monitor_1013")
+local monitor = nil
+while(monitor == nil) do
+ monitor = peripheral.wrap("monitor_1013")
+ os.sleep(0.5)
+end
 local modem = peripheral.wrap("modem_6697")
 local scanner = peripheral.wrap("manipulator_103")
 local expect = require("cc.expect")
@@ -54,8 +57,16 @@ while(true) do
    totalReadyTomatos = totalReadyTomatos +1
   end
  end 
+
+ local sugarcanes = getBlocks(blockScan, "sugar")
+ local totalReadySugarcane = 0 
+ for _, sugarcane in pairs(sugarcanes) do
+  if (sugarcane.y == -1) then
+   totalReadySugarcane = totalReadySugarcane +1
+  end
+ end 
  
- --berry render stuff
+ --berry stuff
  term.setCursorPos(1, 1) monitor.setCursorPos(1, 2)
  local pers, rem = math.floor((totalReadyBushes/#bushes)*100), (#bushes-totalReadyBushes)
  term.clear() monitor.clear()
@@ -74,7 +85,28 @@ while(true) do
  monitor.setCursorPos(1, 5) 
  monitor.write(("%i%% (%i/%i)"):format(pers, totalReadyTomatos, #tomatos))
 
- modem.transmit(42424, 0, {["data"] = {["bushesReady"] = totalReadyBushes, ["totalBushes"] = #bushes, ["tomatosReady"] = totalReadyTomatos, ["totalTomatos"] = #tomatos}, ["deviceId"] = deviceId})
+ --sugarcane stuff
+ term.setCursorPos(1, 5) monitor.setCursorPos(1, 6)
+ local pers, rem = math.floor((totalReadySugarcane/#sugarcanes)*100), (#sugarcanes-totalReadySugarcane)
+
+ print(("Sugarcanes Ready: \n%s%% (%s/%s)"):format(pers, totalReadySugarcane, #sugarcanes))
+ monitor.write(("%s"):format(string.rep(string.char(0x7f), pers/5.7)..string.rep(string.char(0x11), rem/5.7)))
+ monitor.setCursorPos(1, 7) 
+ monitor.write(("%i%% (%i/%i)"):format(pers, totalReadySugarcane, #sugarcanes))
+
+ modem.transmit(42424, 0, {
+  ["data"] = {
+   ["bushesReady"] = totalReadyBushes, 
+   ["totalBushes"] = #bushes, 
+
+   ["tomatosReady"] = totalReadyTomatos, 
+   ["totalTomatos"] = #tomatos,
+
+   ["sugarcanesReady"] = totalReadySugarcane, 
+   ["totalSugarcanes"] = #sugarcanes,
+  }, 
+  ["deviceId"] = deviceId
+ })
  os.sleep(3)
 end
 
