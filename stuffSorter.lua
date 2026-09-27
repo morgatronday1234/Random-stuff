@@ -1,13 +1,9 @@
---Made by morgatron
---https://github.com/morgatronday1234/Random-stuff
-
 expect = require("cc.expect").expect
 
 
 --Log file, Set to nil for no logging to file
 local logFile = "/storageLog.log" 
---Wake trigger, Makes the sorter check the chest on trigger; Comment out line to disable.
-local dumpButton, buttonSide = peripheral.wrap("redstone_relay_720"), "right" 
+local dumpButton, buttonSide = peripheral.wrap("redstone_relay_720"), "right" --Manuel Dump trigger, Set the peripheral bind to nil to disable.
 
 local storageChests = {
  --Keys are priority, Lower number means higher priority.
@@ -16,7 +12,11 @@ local storageChests = {
  [3] = "sc-goodies:diamond_chest_275",
  [4] = "sc-goodies:diamond_chest_278",
  [5] = "sc-goodies:diamond_chest_276",
- [6] = "sc-goodies:diamond_chest_277"
+ [6] = "sc-goodies:diamond_chest_277",
+ [7] = "sc-goodies:diamond_barrel_14392",
+ [8] = "sc-goodies:diamond_barrel_14393",
+ [9] = "sc-goodies:diamond_barrel_14414",
+ [10] = "sc-goodies:diamond_barrel_14413"
 }
 
 local dumpChests = {
@@ -81,7 +81,7 @@ end
 --@argument [1] dump (Or input) chest of type peripheral
 --@argument [2] numarical table of peripherals for sorting (or output), Key will be used for priority.
 --@optional [3] boolean of if it should keep trying the current dump chest until its empty, Defaults to True.
-function storeDump(curDump, peripChests, keepTrying)
+local function storeDump(curDump, peripChests, keepTrying)
  expect(1, curDump, "table")
  expect(2, peripChests, "table")
  expect(3, keepTrying, "boolean", "nil")
@@ -92,8 +92,8 @@ function storeDump(curDump, peripChests, keepTrying)
  
  log(("Checking dump: %s"):format(peripheral.getName(curDump)))
  --What?
- for _, chest in ipairs(peripChests) do
-  log(("Targeting chest: %s"):format(peripheral.getName(chest)))
+ for index, chest in ipairs(peripChests) do
+  log(("Targeting chest: %s (%s/%s)"):format(peripheral.getName(chest), index, #peripChests))
   
   --If the dump chest is empty then break the loop for this dump chest.
   if (getSlotsUsed(curDump) == 0) then
@@ -118,7 +118,7 @@ function storeDump(curDump, peripChests, keepTrying)
  end
 end
 
-while(true) do
+function chestStore() while(true) do
  local isItemsInDumps = false
  for _, dump in pairs(boundDumps) do
   if (getSlotsUsed(dump) > 0) then
@@ -135,7 +135,7 @@ while(true) do
   log("No items in dump chests, Sleeping...")
 
   parallel.waitForAny(function() 
-   os.sleep(60*5) --Sleep between looks, This is horrably optimized.  
+   os.sleep(60*5) 
    return 
   end, function() 
    os.pullEvent("redstone") 
@@ -146,4 +146,4 @@ while(true) do
   end)
 
  end
-end
+end end
