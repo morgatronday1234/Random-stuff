@@ -1,3 +1,6 @@
+--Made by morgatron
+--https://github.com/morgatronday1234/Random-stuff/
+
 local expect = require("cc.expect")
 
 --List of overflow subscribers
