@@ -1,6 +1,6 @@
---This project is under the CC-BY-4.0 license
+--This project- You know what? Fuck the license. Do what you want with the code! Just please give some credit ::3
 --https://github.com/morgatronday1234
---Read the license!
+
 
 local expect = require("cc.expect")
 local glass = peripheral.wrap("back")
@@ -98,7 +98,3 @@ main()
 table.sort(commonColors, function(n1, n2) return (n1["count"] > n2["count"]) end)
 print(textutils.serialize(commonColors))
 ]]
-
---This project is under the CC-BY-4.0 license
---https://github.com/morgatronday1234
---Read the license!
