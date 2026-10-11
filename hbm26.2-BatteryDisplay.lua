@@ -173,6 +173,7 @@ while(true) do
  updateBattery(batts[2], mon1Frame2)
  updateBattery(batts[1], mon1Frame3)
 
+ --We need to invert the order of the batterys for the other side.
  updateBattery(batts[1], mon2Frame3)
  updateBattery(batts[2], mon2Frame2)
  updateBattery(batts[3], mon2Frame1)
